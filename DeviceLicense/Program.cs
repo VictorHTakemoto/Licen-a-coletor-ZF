@@ -7,7 +7,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("Desenvolvimento");
+var connectionString = builder.Configuration.GetConnectionString("Producao");
 builder.Services.AddDbContext<DeviceDbContext>(options => 
     options.UseSqlServer(connectionString));
 
