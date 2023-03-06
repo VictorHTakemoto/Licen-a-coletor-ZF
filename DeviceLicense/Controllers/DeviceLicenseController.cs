@@ -1,7 +1,9 @@
 ﻿using DeviceLicense.Model;
 using DeviceLicense.Model.Entity;
+using DeviceLicense.Model.SecurityDevice;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.WebEncoders.Testing;
+using ONM.SysCentric;
 using System.Data.Common;
 using System.Drawing;
 using System.Linq;
@@ -21,50 +23,69 @@ namespace DeviceLicense.Controllers
         {
             _context = context;
         }
+
         [HttpPost(Name = "PostDeviceLicense")]
         public string Validation(ColetorSeparacao coletor)
         {
+            
+
+            //Security lic = new Security();
+            //string info = lic.Hostname + "|" + lic.OSBuild + "|" + lic.OSSN + "|" + lic.MBSN + "|" + lic.BiosSN;
+            //string modelEncrypt = lic.CodificarString(coletor.VelocityModel, info);
+            //string macEncrypt = lic.CodificarString(coletor.VelocityMac, info);
+            //string snEncrypt = lic.CodificarString(coletor.VelocitySN, info);
             try
             {
                 // Obter data do banco
                 var logModel = _context.Devices.Where(model => model.DeviceModel == coletor.VelocityModel && model.DeviceMac == coletor.VelocityMac && model.DeviceSN == coletor.VelocitySN).FirstOrDefault();
+                //Valida entrada dos dados do coletor
                 if (logModel != null)
                 {
                     if (logModel.Ativo)
                     {
-                        //var resultado = new
-                        //{
-                        //    message = "Dispositivo autorizado"
-                        //};
-                        return "Dispositivo autorizado";
+
+                        var response = "Dispositivo autorizado";
+                        return response;
                     }
                     else
                     {
-                        //var resultado = new
-                        //{                       
-                        //    message = "Coletor não ativo"
-                        //};
-                        return "Coletor não ativo";
+                        var response = "Coletor não ativo";
+                        AtualizarLog(coletor.VelocityModel, coletor.VelocityMac, coletor.VelocitySN, response);
+                        return response;
                     }
                 }
                 else
                 {
-                    //var resultado = new
-                    //{
-                    //    message = "Coletor não autorizado"
-                    //};
-                    return "Coletor não autorizado";
+                   
+                    var response = "Coletor não autorizado";
+                    AtualizarLog(coletor.VelocityModel, coletor.VelocityMac, coletor.VelocitySN, response);
+                    return response;
                 }
             }
             catch (Exception ex)
             {
-                //var resultado = new
-                //{
-                //    isFalse = "false",
-                //    message = "Erro: "
-                //};
-                return "Erro Inesperado: " + ex;
+                
+                var response = "Erro Inesperado: " + ex;
+                AtualizarLog(coletor.VelocityModel, coletor.VelocityMac, coletor.VelocitySN, response);
+                return response;
             }
         }
+
+        //Salva log no banco se o coletor não for autorizado
+        #region
+        void AtualizarLog(string model, string mac, string sn, string message)
+        {
+            _context.Logs.Add(new()
+            {
+                Id = Guid.NewGuid(),
+                Model = model,
+                Mac = mac,
+                SerialNumber = sn,
+                EventTime = DateTime.Now,
+                Message = message
+            });
+            _context.SaveChanges();
+        }
+        #endregion
     }
 }

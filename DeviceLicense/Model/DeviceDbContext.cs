@@ -10,5 +10,6 @@ namespace DeviceLicense.Model
         }
 
         public DbSet<Device> Devices { get; set; }
+        public DbSet<Logs> Logs { get; set; }
     }
 }

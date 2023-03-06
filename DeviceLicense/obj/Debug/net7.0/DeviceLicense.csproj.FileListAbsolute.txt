@@ -52,6 +52,8 @@ C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\System.
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\System.Security.Permissions.dll
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\System.ServiceProcess.ServiceController.dll
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\Topshelf.dll
+C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\TopShelf.ServiceInstaller.dll
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
