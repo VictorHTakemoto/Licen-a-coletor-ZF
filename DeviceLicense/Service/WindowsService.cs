@@ -58,7 +58,7 @@ namespace DeviceLicense.Service
                     app.UseExceptionHandler("/Error");
                     app.UseHsts();
                     using var scope = app.Services.CreateScope();
-                    //Cria Banco com add-migration
+                    //Deploy do Banco com add-migration
                     var db = scope.ServiceProvider.GetRequiredService<DeviceDbContext>();
                     db.Database.Migrate();
 

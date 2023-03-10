@@ -1,13 +1,8 @@
 ﻿using DeviceLicense.Model;
-using DeviceLicense.Model.Entity;
-using DeviceLicense.Model.SecurityDevice;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.WebEncoders.Testing;
-using ONM.SysCentric;
-using System.Data.Common;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices.JavaScript;
+using ONM.SysCentric.Sec;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
 
 namespace DeviceLicense.Controllers
 {
@@ -27,13 +22,13 @@ namespace DeviceLicense.Controllers
         [HttpPost(Name = "PostDeviceLicense")]
         public string Validation(ColetorSeparacao coletor)
         {
-            
+            // TODO: Integrar lib de criptografia
 
-            //Security lic = new Security();
-            //string info = lic.Hostname + "|" + lic.OSBuild + "|" + lic.OSSN + "|" + lic.MBSN + "|" + lic.BiosSN;
-            //string modelEncrypt = lic.CodificarString(coletor.VelocityModel, info);
-            //string macEncrypt = lic.CodificarString(coletor.VelocityMac, info);
-            //string snEncrypt = lic.CodificarString(coletor.VelocitySN, info);
+            Security lic = new Security();
+            //string info = lic.hostname + "|" + lic.osbuild + "|" + lic.ossn + "|" + lic.mbsn + "|" + lic.biossn;
+            //string modelencrypt = lic.codificarstring(coletor.velocitymodel, info);
+            //string macencrypt = lic.codificarstring(coletor.velocitymac, info);
+            //string snencrypt = lic.codificarstring(coletor.velocitysn, info);
             try
             {
                 // Obter data do banco
