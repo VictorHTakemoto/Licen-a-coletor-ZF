@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <Reference Include="ONM.SysCentric.Sec">
-      <HintPath>..\..\DLLSeguranca\ONM.SysCentric.Sec.dll</HintPath>
+      <HintPath>..\ONM.SysCentric.Sec.dll</HintPath>
     </Reference>
   </ItemGroup>
 

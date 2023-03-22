@@ -14,7 +14,7 @@ namespace DeviceLicense.Service
         {
             try
             {
-                Console.WriteLine("Deu certo!!!");
+                //Console.WriteLine("Deu certo!!!");
                 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
                 var builder = WebApplication.CreateBuilder(args);
