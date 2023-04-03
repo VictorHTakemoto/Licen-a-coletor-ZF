@@ -4,13 +4,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Topshelf;
 
-namespace DeviceLicense
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            HostFactory.Run(p =>
+HostFactory.Run(p =>
             {
                 p.Service<WindowsService>(s =>
                 {
@@ -19,10 +13,7 @@ namespace DeviceLicense
                     s.WhenStopped(st => st.stop());
                 });
                 p.RunAsLocalSystem();
-                p.SetDescription("API Licenciamento Dispositivo");
-                p.SetDisplayName("Licenciamento Dispositivo");
-                p.SetServiceName("Licenciamento");
+                p.SetDescription("API Licença Coletor de Dados");
+                p.SetDisplayName("API Licença");
+                p.SetServiceName("Licença Coletor");
             });
-        }
-    }
-}

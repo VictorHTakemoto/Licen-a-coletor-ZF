@@ -1,4 +1,5 @@
 ﻿using DeviceLicense.Model;
+using DeviceLicense.Model.CollectorData;
 using Microsoft.AspNetCore.Mvc;
 using ONM.SysCentric.Sec;
 using System.Runtime.InteropServices;
@@ -22,29 +23,27 @@ namespace DeviceLicense.Controllers
         [HttpPost(Name = "PostDeviceLicense")]
         public string Validation(ColetorSeparacao coletor)
         {
-            // TODO: Integrar lib de criptografia
+            //Criptografa entrada de dados da API.
+            Security lic = new();
+            string modelEncrypt = lic.CodificarString(coletor.VelocityModel);
+            string macEncrypt = lic.CodificarString(coletor.VelocityMac);
+            var snEncrypt = lic.CodificarString(coletor.VelocitySN);
 
-            Security lic = new Security();
-            //string info = lic.hostname + "|" + lic.osbuild + "|" + lic.ossn + "|" + lic.mbsn + "|" + lic.biossn;
-            //string modelencrypt = lic.codificarstring(coletor.velocitymodel, info);
-            //string macencrypt = lic.codificarstring(coletor.velocitymac, info);
-            //string snencrypt = lic.codificarstring(coletor.velocitysn, info);
             try
             {
-                // Obter data do banco
-                var logModel = _context.Devices.Where(model => model.DeviceModel == coletor.VelocityModel && model.DeviceMac == coletor.VelocityMac && model.DeviceSN == coletor.VelocitySN).FirstOrDefault();
-                //Valida entrada dos dados do coletor
+                // Obter data do banco.
+                var logModel = _context.Devices.Where(model => model.DeviceModel == modelEncrypt && model.DeviceMac == macEncrypt && model.DeviceSN == snEncrypt).FirstOrDefault();
+                //Valida entrada dos dados do coletor.
                 if (logModel != null)
                 {
                     if (logModel.Ativo)
                     {
-
-                        var response = "Dispositivo autorizado";
+                        var response = _context.Messages.Find(1).ResponseMessage;
                         return response;
                     }
                     else
                     {
-                        var response = "Coletor não ativo";
+                        var response = _context.Messages.Find(2).ResponseMessage;
                         AtualizarLog(coletor.VelocityModel, coletor.VelocityMac, coletor.VelocitySN, response);
                         return response;
                     }
@@ -52,7 +51,7 @@ namespace DeviceLicense.Controllers
                 else
                 {
                    
-                    var response = "Coletor não autorizado";
+                    var response = _context.Messages.Find(3).ResponseMessage;
                     AtualizarLog(coletor.VelocityModel, coletor.VelocityMac, coletor.VelocitySN, response);
                     return response;
                 }
@@ -60,13 +59,13 @@ namespace DeviceLicense.Controllers
             catch (Exception ex)
             {
                 
-                var response = "Erro Inesperado: " + ex;
+                var response = _context.Messages.Find(4).ResponseMessage + ex;
                 AtualizarLog(coletor.VelocityModel, coletor.VelocityMac, coletor.VelocitySN, response);
                 return response;
             }
         }
 
-        //Salva log no banco se o coletor não for autorizado
+        //Salva log no banco se o coletor não for autorizado.
         #region
         void AtualizarLog(string model, string mac, string sn, string message)
         {

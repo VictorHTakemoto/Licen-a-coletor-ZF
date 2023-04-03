@@ -1,4 +1,4 @@
-﻿namespace DeviceLicense
+﻿namespace DeviceLicense.Model.CollectorData
 {
     public class ColetorSeparacao
     {

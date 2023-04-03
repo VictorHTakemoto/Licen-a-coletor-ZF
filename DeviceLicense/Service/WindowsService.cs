@@ -36,7 +36,7 @@ namespace DeviceLicense.Service
                     options.AddPolicy(name: MyAllowSpecificOrigins,
                         policy =>
                         {
-                            policy.WithOrigins("http://localhost:8080", "http://localhost:7800", "http://127.0.0.1:5500").AllowAnyHeader().AllowAnyMethod();
+                            policy.WithOrigins("http://localhost", "http://localhost:7800", "http://127.0.0.1:5500").AllowAnyHeader().AllowAnyMethod();
                         });
                 });
 
@@ -83,6 +83,7 @@ namespace DeviceLicense.Service
         }
         public void stop()
         {
+            Console.WriteLine("API encerrada");
         }
     }
 }
