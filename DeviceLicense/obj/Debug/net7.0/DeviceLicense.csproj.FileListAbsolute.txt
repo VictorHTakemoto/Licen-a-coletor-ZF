@@ -83,3 +83,5 @@ C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\obj\Debug\net7.0\refint\
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\obj\Debug\net7.0\DeviceLicense.pdb
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\obj\Debug\net7.0\DeviceLicense.genruntimeconfig.cache
 C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\obj\Debug\net7.0\ref\DeviceLicense.dll
+C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\Properties\DomainAllow.json
+C:\Users\victo\source\repos\DeviceLicense\DeviceLicense\bin\Debug\net7.0\Newtonsoft.Json.dll

@@ -1,6 +1,11 @@
 ﻿using DeviceLicense.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
+using System.Numerics;
+using static System.Net.Mime.MediaTypeNames;
+using DeviceLicense.Model.CollectorData;
 
 namespace DeviceLicense.Service
 {
@@ -15,7 +20,7 @@ namespace DeviceLicense.Service
             try
             {
                 //Console.WriteLine("Deu certo!!!");
-                var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+                //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
                 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,13 +35,18 @@ namespace DeviceLicense.Service
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
 
+                //var teste = File.ReadAllText(Application.StartupPath + "\\Teste");
+                //var teste = _context.Devices.Find(1);
+                //Console.WriteLine(teste.DeviceMac);
+
                 //Define os dominios na lista de permissao do CORS
                 builder.Services.AddCors(options =>
                 {
-                    options.AddPolicy(name: MyAllowSpecificOrigins,
-                        policy =>
+                    options.AddPolicy(name: "AllowAnyOrigin",
+                        builder =>
                         {
-                            policy.WithOrigins("http://localhost", "http://localhost:7800", "http://127.0.0.1:5500").AllowAnyHeader().AllowAnyMethod();
+                            //policy.WithOrigins("http://localhost", "http://localhost:7800", "http://127.0.0.1:5500").AllowAnyHeader().AllowAnyMethod();
+                            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                         });
                 });
 
@@ -48,8 +58,6 @@ namespace DeviceLicense.Service
                 });
 
                 var app = builder.Build();
-
-
 
                 // Configure the HTTP request pipeline.
                 if (app.Environment.IsDevelopment())
@@ -66,7 +74,7 @@ namespace DeviceLicense.Service
                     app.UseSwaggerUI();
                 }
 
-                app.UseCors(MyAllowSpecificOrigins);
+                app.UseCors("AllowAnyOrigin");
 
                 app.UseHttpsRedirection();
 
